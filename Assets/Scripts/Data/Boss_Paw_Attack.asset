@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6c872bbda7eb84db0d177522cb879c, type: 3}
+  m_Name: Boss_Paw_Attack
+  m_EditorClassIdentifier: 
+  attackResource: {fileID: 2444283416611160208, guid: 14ef88085ff4b5d43b007aea984665a6, type: 3}
+  cooldown: 0.5
+  damage: 1
+  lifetime: 3.5
+  type: Bullet_Swipe_Coots
+  bulletVelocity: {x: 1, y: 0}
+  bulletSpeed: 3.5
+  bulletCount: 1
+  minRotation: 270
+  maxRotation: 270
+  specificRotations: []
+  isRandom: 0
+  isNotParent: 1

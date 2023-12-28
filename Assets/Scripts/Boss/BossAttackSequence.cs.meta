@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2df64435bc1dcc94c8deea0a4121707f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - head: {instanceID: 0}
+  - facialExpression: {instanceID: 0}
+  - blinkExpression: {instanceID: 0}
+  - pawL: {instanceID: 0}
+  - pawR: {instanceID: 0}
+  - pawAnchorL: {instanceID: 0}
+  - pawAnchorR: {instanceID: 0}
+  - faceScream: {instanceID: 0}
+  - faceNeutralOpenEyes: {instanceID: 0}
+  - faceNeutralClosedEyes: {instanceID: 0}
+  - objectToSpawn: {fileID: 6073782460810336361, guid: 5e21a40936bf7f2429d8748094b23d6d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
