@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
     protected Vector3 velocity = Vector3.zero;
     protected Direction facingDirection;
 
-    public float startHp;
-    public float hp;
+    // public float startHp;
+    // public float hp;
 
-    public float invulnerabilityCooldown;
-    public float invulnerabilityTimer;
+    // public float invulnerabilityCooldown;
+    // public float invulnerabilityTimer;
     //public float transformTimer;
     public float flickerDuration;
     public float flickerAmnt;
@@ -74,11 +74,11 @@ public class Player : MonoBehaviour
     {
         //controls.Main.Fire.performed += OnFire();
         moveToPosition = transform.position;
-        hp = startHp;
-        print("set player hp " + hp);
-        SetHealthBar();
+        // hp = startHp;
+        // print("set player hp " + hp);
+        //SetHealthBar();
 
-        invulnerabilityTimer = 0;
+        // invulnerabilityTimer = 0;
 
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         currentSprite = sleepSprite;
@@ -114,10 +114,10 @@ public class Player : MonoBehaviour
 
     private void TickTimer()
     {
-        if (invulnerabilityTimer > 0)
-        {
-            invulnerabilityTimer -= Time.deltaTime;
-        }
+        // if (invulnerabilityTimer > 0)
+        // {
+        //     invulnerabilityTimer -= Time.deltaTime;
+        // }
 
         // if (transformTimer > 0)
         // {
@@ -256,7 +256,24 @@ public class Player : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, moveToPosition, ref velocity, smoothSpeed);
     }
 
-    public virtual void SetHealthBar() {}
+    //public virtual void SetHealthBar() {}
+    /*
+    if(hp == 3){
+            UI.transform.Find("Heart1").gameObject.SetActive(true);
+            UI.transform.Find("Heart2").gameObject.SetActive(true);
+            UI.transform.Find("Heart3").gameObject.SetActive(true);
+        }
+        else if(hp == 2){
+            UI.transform.Find("Heart1").gameObject.SetActive(true);
+            UI.transform.Find("Heart2").gameObject.SetActive(true);
+            UI.transform.Find("Heart3").gameObject.SetActive(false);
+        }
+        else if(hp == 1){
+            UI.transform.Find("Heart1").gameObject.SetActive(true);
+            UI.transform.Find("Heart2").gameObject.SetActive(false);
+            UI.transform.Find("Heart3").gameObject.SetActive(false);
+        }
+    */
 
     IEnumerator DamageFlicker(float invul) {
         float flickerCount = 10f;
@@ -272,14 +289,15 @@ public class Player : MonoBehaviour
     }
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "EnemyAttack" && invulnerabilityTimer <= 0)
+        if (collision.tag == "EnemyAttack") // && invulnerabilityTimer <= 0
         {
-            float damage = collision.gameObject.GetComponent<Bullet>().GetDamage();
-            hp -= damage;
-            print("Player Health: " + hp);
-            SetHealthBar();
-            invulnerabilityTimer = invulnerabilityCooldown;
-            StartCoroutine(DamageFlicker(invulnerabilityTimer));
+            // float damage = collision.gameObject.GetComponent<Bullet>().GetDamage();
+            // hp -= damage;
+            // print("Player Health: " + hp);
+            // SetHealthBar();
+            // invulnerabilityTimer = invulnerabilityCooldown;
+            // StartCoroutine(DamageFlicker(invulnerabilityTimer));
+            // TODO: Make them die instantly
         }
     }
 

@@ -10,18 +10,18 @@ public class Heal : PowerupEffect
 
     public override void Apply(GameObject target)
     {
-        Player player = target.GetComponent<Player>();
-        float hp = player.hp;
-        float startHp = player.startHp;
-        hp += amount;
+        // Player player = target.GetComponent<Player>();
+        // float hp = player.hp;
+        // float startHp = player.startHp;
+        // hp += amount;
 
-        if (hp > startHp)
-        {
-            hp = startHp;
-        }
+        // if (hp > startHp)
+        // {
+        //     hp = startHp;
+        // }
 
-        player.hp = hp;
-        player.SetHealthBar();
-        Debug.Log(target.GetComponent<Player>().hp);
+        // player.hp = hp;
+        // player.SetHealthBar();
+        // Debug.Log(target.GetComponent<Player>().hp);
     }
 }
