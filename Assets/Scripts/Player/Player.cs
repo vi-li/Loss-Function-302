@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class Player : MonoBehaviour
     protected Tilemap groundTilemap;
     [SerializeField]
     protected Tilemap collisionTilemap;
-    [SerializeField] protected Tilemap collisionTilemap2;
+    [SerializeField]
+    protected Tilemap collisionTilemap2;
     protected PlayerMovement controls;
     [SerializeField]
     protected GameObject[] DoNotRunInto;
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour
     // public float invulnerabilityTimer;
     //public float transformTimer;
     public float flickerDuration;
-    public float flickerAmnt;
+    public float flickerCount;
     
     //public PlayerType defaultPiece;
     //public PlayerType piece;
@@ -38,21 +40,8 @@ public class Player : MonoBehaviour
     public bool isBeingControlled;
 
     protected SpriteRenderer spriteRenderer;
-    public Sprite sideSprite;
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite deadSprite;
-    public Sprite sleepSprite;
     Sprite currentSprite;
-
-    // public enum PlayerType
-    // {
-    //     PAWN,
-    //     KNIGHT,
-    //     ROOK,
-    //     BISHOP,
-    //     QUEEN,
-    // }
+    Animator animator;
 
     protected enum Direction {
         left, right, up, down
@@ -80,35 +69,44 @@ public class Player : MonoBehaviour
 
         moveToPosition = transform.position;
 
-        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        currentSprite = sleepSprite;
-        spriteRenderer.sprite = currentSprite;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public void GoToSleep()
     {
-        controls.Main.Movement.performed -= ctx => Move(ctx.ReadValue<Vector2>());
+        controls.Main.Movement.performed -= MoveCallback;
         isBeingControlled = false;
         
-        // Visually go to sleep, add animation later if there's time
-        spriteRenderer.sprite = sleepSprite;
+        // Visually go to sleep
+        animator.SetInteger("facingDirection", (int)Direction.down);
+        animator.SetBool("isSleeping", true);
     }
 
     public void WakeUp()
     {
-        controls.Main.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.Main.Movement.performed += MoveCallback;
         isBeingControlled = true;
 
-        // Visually wake up, add animation later if there's time
-        spriteRenderer.sprite = downSprite;
+        // Visually wake up
+        animator.SetInteger("facingDirection", (int)Direction.down);
+        animator.SetBool("isSleeping", false);
     }
     
     void Update()
     {
-        TickTimer();
-        if (isBeingControlled)
+        //TickTimer();
+        SmoothMove();
+
+        if (Input.GetButtonDown("Swap"))
         {
-            SmoothMove();
+            if (isBeingControlled)
+            {
+                GoToSleep();
+            } else
+            {
+                WakeUp();
+            }
         }
     }
 
@@ -129,42 +127,6 @@ public class Player : MonoBehaviour
         // }
     }
 
-    // public void UpdatePieceTypeScript()
-    // {
-    //     Destroy(gameObject.GetComponent<PieceType>());
-
-    //     var bulletSpawner = gameObject.GetComponent<BulletSpawner>();
-    //     if (bulletSpawner != null)
-    //     {
-    //         Destroy(bulletSpawner);
-    //     }
-
-    //     switch (piece)
-    //     {
-    //         case PlayerType.PAWN:
-    //             gameObject.AddComponent<PawnType>();
-    //             spriteRenderer.sprite = pawnSprite;
-    //             break;
-    //         case PlayerType.KNIGHT:
-    //             gameObject.AddComponent<KnightType>();
-    //             spriteRenderer.sprite = knightSprite;
-    //             break;
-    //         case PlayerType.ROOK:
-    //             gameObject.AddComponent<RookType>();
-    //             spriteRenderer.sprite = rookSprite;
-    //             break;
-    //         case PlayerType.BISHOP:
-    //             gameObject.AddComponent<BishopType>();
-    //             spriteRenderer.sprite = bishopSprite;
-    //             break;
-    //         case PlayerType.QUEEN:
-    //             gameObject.AddComponent<QueenType>();
-    //             spriteRenderer.sprite = queenSprite;
-    //             break;
-    //     }
-    //     currentSprite = spriteRenderer.sprite;
-    // }
-
     protected bool CanMove(Vector2 direction)
     {
         Vector3Int gridPosition = groundTilemap.WorldToCell(moveToPosition + (Vector3)direction);
@@ -176,6 +138,11 @@ public class Player : MonoBehaviour
         }
 
         return true;
+    }
+
+    private void MoveCallback(InputAction.CallbackContext ctx)
+    {
+        Move(controls.Main.Movement.ReadValue<Vector2>());
     }
 
     protected void Move(Vector2 direction)
@@ -205,30 +172,13 @@ public class Player : MonoBehaviour
         }
 
         //UpdatePlayerRotation();
-        UpdateSpriteRenderer();
+        UpdateAnimator();
     }
 
     // To be used in the case of "front-facing" sprites
-    protected void UpdateSpriteRenderer()
+    protected void UpdateAnimator()
     {
-        switch (facingDirection)
-        {
-            case(Direction.right):
-                transform.eulerAngles = new Vector3(0, 0, 270);
-                spriteRenderer.flipX = true;
-                break;
-            case(Direction.up):
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                break;
-            case(Direction.left):
-                transform.eulerAngles = new Vector3(0, 0, 90);
-                spriteRenderer.flipX = false;
-                break;
-            case(Direction.down):
-                transform.eulerAngles = new Vector3(0, 0, 180);
-                break;
-        }
-        spriteRenderer.transform.rotation = Quaternion.identity;
+        animator.SetInteger("facingDirection", (int)facingDirection);
     }
 
     // To be used in the case of "top-down" sprites
@@ -253,6 +203,12 @@ public class Player : MonoBehaviour
 
     protected void SmoothMove()
     {
+        if (moveToPosition != transform.position)
+        {
+            animator.SetBool("isMoving", true);
+        } else {
+            animator.SetBool("isMoving", false);
+        }
         transform.position = Vector3.SmoothDamp(transform.position, moveToPosition, ref velocity, smoothSpeed);
     }
 
@@ -280,7 +236,6 @@ public class Player : MonoBehaviour
         float flickerInterval = invul / flickerCount;
 
         for (int i = 0; i < flickerCount; i++) {
-            //spriteRenderer.sprite = null;
             spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
             yield return new WaitForSeconds(flickerInterval);
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
