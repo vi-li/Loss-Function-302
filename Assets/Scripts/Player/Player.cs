@@ -73,19 +73,19 @@ public class Player : MonoBehaviour
     void Start()
     {
         //controls.Main.Fire.performed += OnFire();
-        moveToPosition = transform.position;
         // hp = startHp;
         // print("set player hp " + hp);
         //SetHealthBar();
-
         // invulnerabilityTimer = 0;
+
+        moveToPosition = transform.position;
 
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         currentSprite = sleepSprite;
         spriteRenderer.sprite = currentSprite;
     }
 
-    void GoToSleep()
+    public void GoToSleep()
     {
         controls.Main.Movement.performed -= ctx => Move(ctx.ReadValue<Vector2>());
         isBeingControlled = false;
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         spriteRenderer.sprite = sleepSprite;
     }
 
-    void WakeUp()
+    public void WakeUp()
     {
         controls.Main.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         isBeingControlled = true;

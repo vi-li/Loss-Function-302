@@ -983,6 +983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 206508437}
   - component: {fileID: 206508436}
+  - component: {fileID: 206508438}
   - component: {fileID: 206508435}
   - component: {fileID: 206508434}
   - component: {fileID: 206508433}
@@ -1119,22 +1120,17 @@ MonoBehaviour:
   groundTilemap: {fileID: 1640921889}
   collisionTilemap: {fileID: 1513944564}
   collisionTilemap2: {fileID: 1513944564}
+  DoNotRunInto: []
   smoothSpeed: 0.1
-  startHp: 3
-  hp: 0
-  invulnerabilityCooldown: 1
-  invulnerabilityTimer: 0
-  transformTimer: 0
   flickerDuration: 0
   flickerAmnt: 0
-  defaultPiece: 0
-  piece: 0
   control: {fileID: 352524502}
-  pawnSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
-  knightSprite: {fileID: 21300000, guid: 7d1a6db182279694f9fe508bb809711a, type: 3}
-  rookSprite: {fileID: 21300000, guid: 337097f54a24255428f2638f7cb48496, type: 3}
-  bishopSprite: {fileID: 21300000, guid: 97e639a423fce6647aafaecde86812d9, type: 3}
-  queenSprite: {fileID: 21300000, guid: 932be25ade17fdc4d9f575c61fb15f0e, type: 3}
+  isBeingControlled: 0
+  sideSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
+  upSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
+  downSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
+  deadSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
+  sleepSprite: {fileID: 21300000, guid: c4e37df3a99199e4cb5ec78e20758f1d, type: 3}
 --- !u!4 &206508437
 Transform:
   m_ObjectHideFlags: 0
@@ -1151,6 +1147,18 @@ Transform:
   - {fileID: 759797555}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206508438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206508431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdead4ba2d8687d469463dc0577156e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!213 &209383847
 Sprite:
   m_ObjectHideFlags: 0
@@ -20651,6 +20659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902635085}
   - component: {fileID: 1902635090}
+  - component: {fileID: 1902635092}
   - component: {fileID: 1902635087}
   - component: {fileID: 1902635086}
   - component: {fileID: 1902635088}
@@ -20787,22 +20796,17 @@ MonoBehaviour:
   groundTilemap: {fileID: 1640921889}
   collisionTilemap: {fileID: 1513944564}
   collisionTilemap2: {fileID: 1513944564}
+  DoNotRunInto: []
   smoothSpeed: 0.1
-  startHp: 3
-  hp: 0
-  invulnerabilityCooldown: 1
-  invulnerabilityTimer: 0
-  transformTimer: 0
   flickerDuration: 0
   flickerAmnt: 0
-  defaultPiece: 0
-  piece: 0
   control: {fileID: 352524502}
-  pawnSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
-  knightSprite: {fileID: 21300000, guid: 7d1a6db182279694f9fe508bb809711a, type: 3}
-  rookSprite: {fileID: 21300000, guid: 337097f54a24255428f2638f7cb48496, type: 3}
-  bishopSprite: {fileID: 21300000, guid: 97e639a423fce6647aafaecde86812d9, type: 3}
-  queenSprite: {fileID: 21300000, guid: 932be25ade17fdc4d9f575c61fb15f0e, type: 3}
+  isBeingControlled: 1
+  sideSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
+  upSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
+  downSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
+  deadSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
+  sleepSprite: {fileID: 21300000, guid: 127df75613f937d488dc477a50dd8faa, type: 3}
 --- !u!114 &1902635091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20819,6 +20823,18 @@ MonoBehaviour:
   abilityTimer: 0
   abilityCooldown: 0.25
   spawnData: {fileID: 0}
+--- !u!114 &1902635092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902635081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93196bb626c9234dad89c4307980f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2097090082
 GameObject:
   m_ObjectHideFlags: 0
