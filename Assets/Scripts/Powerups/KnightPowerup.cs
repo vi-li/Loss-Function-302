@@ -10,11 +10,11 @@ public class KnightPowerup : PowerupEffect
 
    public override void Apply(GameObject target)
    {
-      player = target.GetComponent<Player>();
+      // player = target.GetComponent<Player>();
 
-      player.piece = Player.PlayerType.KNIGHT;
-      player.UpdatePieceTypeScript();
+      // player.piece = Player.PlayerType.KNIGHT;
+      // player.UpdatePieceTypeScript();
 
-      player.transformTimer = transformTimeLimit;
+      // player.transformTimer = transformTimeLimit;
    }
 }

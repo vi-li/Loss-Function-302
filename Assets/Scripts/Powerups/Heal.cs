@@ -21,7 +21,7 @@ public class Heal : PowerupEffect
         }
 
         player.hp = hp;
-        player.UpdateHealth();
+        player.SetHealthBar();
         Debug.Log(target.GetComponent<Player>().hp);
     }
 }

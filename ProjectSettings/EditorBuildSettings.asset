@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2827c5c22e54d2643b11dd90ebea80bc
   - enabled: 1
-    path: Assets/Scenes/bullethellchess.unity
+    path: Assets/Scenes/PuzzleRooms.unity
     guid: 005776326698afe42b49102bb795156a
   - enabled: 1
     path: Assets/Scenes/Victory.unity
