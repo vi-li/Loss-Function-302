@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -9,6 +11,11 @@ public class GameController : MonoBehaviour
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
     protected List<Player> players;
+    [SerializeField]
+    protected GameObject evil;
+    Camera mainCamera;
+    [SerializeField]
+    List<PlayableDirector> animations;
 
     void Start()
     {
@@ -19,22 +26,23 @@ public class GameController : MonoBehaviour
             print(playerGameObj.ToString());
             players.Add(playerGameObj.GetComponent<Player>());
         }
+        mainCamera = Camera.main;
     }
 
     public void Victory() {
-        StopPlay();
+        PausePlay();
         PlayCutScene(-1);
         SceneManager.LoadScene("Victory");
     }
     public void StartRoom(int roomIndex)
     {
-        StopPlay();
+        PausePlay();
         PlayCutScene(roomIndex);
         InstantiateObstacles(roomIndex);
         ResumePlay();
     }
 
-    public void StopPlay()
+    public void PausePlay()
     {
         foreach (Player player in players)
         {
@@ -61,20 +69,11 @@ public class GameController : MonoBehaviour
 
     public void PlayCutScene(int roomIndex)
     {
-        switch (roomIndex)
+        if (roomIndex == -1)
         {
-            // Tutorial
-            case 0:
-            // Easy
-            case 1:
-            // Medium
-            case 2:
-            // Hard
-            case 3:
-            // Victory
-            case -1:
-            return;
-            // TODO: Not implemented yet
+            animations.Last().Play();
+        } else {
+            animations[roomIndex].Play();
         }
     }
 

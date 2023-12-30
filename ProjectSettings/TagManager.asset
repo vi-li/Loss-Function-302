@@ -9,6 +9,8 @@ TagManager:
   - CootsPawR
   - EnemyAttack
   - Upgrade
+  - InstantDeath
+  - InstantiateObstacles
   layers:
   - Default
   - TransparentFX
