@@ -61,13 +61,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //controls.Main.Fire.performed += OnFire();
+        controls.Main.Fire.performed += OnFire();
         // hp = startHp;
         // print("set player hp " + hp);
         //SetHealthBar();
         // invulnerabilityTimer = 0;
 
         moveToPosition = transform.position;
+        //controls.Main.Fire.performed += ctx => OnFire();
         isInvulnerable = false;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -274,8 +275,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    // protected virtual void OnFire()
-    // {
-    //     gameObject.GetComponent<PieceType>().Attack();
-    // }
+     protected virtual void OnFire()
+     {
+        
+         currentPosition = gameObject.transform.position;
+         direction = controls.Main.Movement.ReadValue<Vector2>()
+
+     }
 }
