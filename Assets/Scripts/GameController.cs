@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public int roomIndex = 0;
+    // static variables are persistent across scene reloads
+    public static bool cutScenePlayed = false;
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
     protected List<Player> players;
@@ -71,17 +74,27 @@ public class GameController : MonoBehaviour
 
     public void PlayCutScene(int roomIndex)
     {
+        if (cutScenePlayed)
+        {
+            return;
+        }
         if (roomIndex == -1)
         {
             animations.Last().Play();
         } else {
             animations[roomIndex].Play();
         }
+        cutScenePlayed = true;
     }
 
     public void InstantiateObstacles(int roomIndex)
     {
         m_instantiateObstacles.Instantiate(roomIndex);
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // public void GameOver(){

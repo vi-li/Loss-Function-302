@@ -270,6 +270,7 @@ public class Player : MonoBehaviour
             // StartCoroutine(DamageFlicker(invulnerabilityTimer));
             // TODO: Make them die instantly
             print(gameObject.ToString() + " died");
+            control.Reset();
         }
     }
 
