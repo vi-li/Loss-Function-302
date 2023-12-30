@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
     {
         controls.Main.Movement.performed -= MoveCallback;
         isBeingControlled = false;
+        print(gameObject.ToString() + "is sleeping");
         
         // Visually go to sleep
         animator.SetInteger("facingDirection", (int)Direction.down);
@@ -92,6 +93,7 @@ public class Player : MonoBehaviour
 
     public void WakeUp()
     {
+        print(gameObject.ToString() + "is waking");
         controls.Main.Movement.performed += MoveCallback;
         isBeingControlled = true;
 
@@ -160,7 +162,10 @@ public class Player : MonoBehaviour
 
     private void MoveCallback(InputAction.CallbackContext ctx)
     {
-        Move(controls.Main.Movement.ReadValue<Vector2>());
+        if (isBeingControlled)
+        {
+            Move(controls.Main.Movement.ReadValue<Vector2>());
+        }
     }
 
     protected void Move(Vector2 direction)

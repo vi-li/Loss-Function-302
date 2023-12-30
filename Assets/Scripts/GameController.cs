@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     PlayableDirector m_animation;
     [SerializeField]
     GameObject evil;
+    AudioSource BGM;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init()
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         m_instantiateObstacles = GameObject.FindGameObjectsWithTag("InstantiateObstacles")[0].GetComponent<InstantiateObstacles>();
+        BGM = GameObject.FindGameObjectsWithTag("BGM")[0].GetComponent<AudioSource>();
         // GameObject[] playerGameObjs = GameObject.FindGameObjectsWithTag("Player");
         // foreach (GameObject playerGameObj in playerGameObjs)
         // {
@@ -53,16 +55,33 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator StartRoom(int roomIndex)
     {
+        float originalVolume = BGM.volume;
+        StartCoroutine(StartFadeMusic(BGM, 1.5f, 0f));
         PausePlay();
         PlayCutScene();
         yield return StartCoroutine(InstantiateObstacles(roomIndex));
         evil.SetActive(false);
         ResumePlay();
         cutScenePlayed = true;
+        StartCoroutine(StartFadeMusic(BGM, 1.5f, originalVolume));
+    }
+
+    public static IEnumerator StartFadeMusic(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
     }
 
     public void PausePlay()
     {
+        print("Pausing play");
         cameraFollowScript.enabled = false;
         foreach (Player player in players)
         {
@@ -77,6 +96,7 @@ public class GameController : MonoBehaviour
 
     public void ResumePlay()
     {
+        print("Resuming play");
         cameraFollowScript.enabled = true;
         foreach (Player player in players)
         {
