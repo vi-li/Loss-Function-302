@@ -36407,6 +36407,7 @@ GameObject:
   - component: {fileID: 1585588025}
   - component: {fileID: 1585588024}
   - component: {fileID: 1585588023}
+  - component: {fileID: 1585588026}
   m_Layer: 5
   m_Name: Main Menu Button
   m_TagString: Untagged
@@ -36476,7 +36477,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1585588024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1585588026}
+        m_TargetAssemblyTypeName: SceneFader, Assembly-CSharp
+        m_MethodName: FadeOutScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1585588024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36515,6 +36528,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585588021}
   m_CullTransparentMesh: 1
+--- !u!114 &1585588026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585588021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652c2ca5ba7ac4e40a5175a32abf3f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutUIImage: {fileID: 52969618}
+  bgmAudioSource: {fileID: 0}
+  fadeSpeed: 0.8
 --- !u!1 &1633634586
 GameObject:
   m_ObjectHideFlags: 0
