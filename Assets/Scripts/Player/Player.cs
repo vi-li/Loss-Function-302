@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     protected float smoothSpeed = 10.0f;
     protected Vector3 moveToPosition;
+    
     protected Vector3 velocity = Vector3.zero;
     protected Direction facingDirection;
 
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
     Sprite currentSprite;
     Animator animator;
     CameraFollow cameraFollow;
+    Vector3 currentPosition;
 
     protected enum Direction {
         left, right, up, down
@@ -49,6 +51,10 @@ public class Player : MonoBehaviour
 
     private void Awake() {
         controls = new PlayerMovement();
+
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
     protected void OnEnable() {
@@ -61,7 +67,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        controls.Main.Fire.performed += OnFire();
+        controls.Main.Fire.performed += ctx => OnFire();
         // hp = startHp;
         // print("set player hp " + hp);
         //SetHealthBar();
@@ -70,11 +76,6 @@ public class Player : MonoBehaviour
         moveToPosition = transform.position;
         //controls.Main.Fire.performed += ctx => OnFire();
         isInvulnerable = false;
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-
-        cameraFollow = Camera.main.GetComponent<CameraFollow>();
 
         impermeables = GameObject.FindGameObjectsWithTag("Player");
     }
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour
         animator.SetInteger("facingDirection", (int)Direction.down);
         animator.SetBool("isSleeping", false);
         print("setting objectToTarget to " + gameObject.ToString());
-        cameraFollow.objectToTarget = gameObject;
+        //cameraFollow.objectToTarget = gameObject;
     }
     
     void Update()
@@ -130,7 +131,7 @@ public class Player : MonoBehaviour
         //     transformTimer -= Time.deltaTime;
         //     if (transformTimer <= 0)
         //     {
-        //         // transformation back to og
+        //         transformation back to og
         //     }
         // }
     }
@@ -275,11 +276,9 @@ public class Player : MonoBehaviour
         }
     }
 
-     protected virtual void OnFire()
+     protected void OnFire()
      {
-        
          currentPosition = gameObject.transform.position;
-         direction = controls.Main.Movement.ReadValue<Vector2>()
-
+         //Vector2 direction = controls.Main.Movement.ReadValue<Vector2>();
      }
 }

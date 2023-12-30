@@ -5,11 +5,15 @@ using UnityEngine;
 public class Neuro : MonoBehaviour
 {
     Player player;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = gameObject.GetComponent<Player>();
         player.GoToSleep();
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame

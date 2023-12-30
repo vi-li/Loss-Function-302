@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public int roomIndex = 0;
-    // static variables are persistent across scene reloads
+    // static variables are persisted across scene reloads
+    [SerializeField]
     public static bool cutScenePlayed = false;
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
@@ -17,7 +18,15 @@ public class GameController : MonoBehaviour
     Camera mainCamera;
     CameraFollow cameraFollowScript;
     [SerializeField]
-    List<PlayableDirector> animations;
+    PlayableDirector m_animation;
+    [SerializeField]
+    GameObject evil;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void Init()
+    {
+        cutScenePlayed = false;   
+    }
 
     void Start()
     {
@@ -25,24 +34,32 @@ public class GameController : MonoBehaviour
         GameObject[] playerGameObjs = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject playerGameObj in playerGameObjs)
         {
-            print(playerGameObj.ToString());
             players.Add(playerGameObj.GetComponent<Player>());
         }
+
         mainCamera = Camera.main;
         cameraFollowScript = mainCamera.GetComponent<CameraFollow>();
+
+        print("StartingRoom");
+        StartCoroutine(StartRoom(roomIndex));
     }
 
-    public void Victory() {
-        PausePlay();
-        PlayCutScene(-1);
-        SceneManager.LoadScene("Victory");
-    }
-    public void StartRoom(int roomIndex)
+    public void Victory() 
     {
         PausePlay();
-        PlayCutScene(roomIndex);
-        InstantiateObstacles(roomIndex);
+        PlayCutScene();
+        SceneManager.LoadScene("Victory");
+    }
+    public IEnumerator StartRoom(int roomIndex)
+    {
+        print("Pause play");
+        PausePlay();
+        PlayCutScene();
+        yield return StartCoroutine(InstantiateObstacles(roomIndex));
+        print("Resume play");
+        evil.SetActive(false);
         ResumePlay();
+        cutScenePlayed = true;
     }
 
     public void PausePlay()
@@ -66,30 +83,27 @@ public class GameController : MonoBehaviour
         {
             if (player == playerToWake)
             {
+                print("Player to wake: " + player.gameObject.ToString());
                 player.isBeingControlled = true;
             }
             player.isInvulnerable = false;
         }
     }
 
-    public void PlayCutScene(int roomIndex)
+    public void PlayCutScene()
     {
         if (cutScenePlayed)
         {
+            print("cutscene was played already");
             return;
         }
-        if (roomIndex == -1)
-        {
-            animations.Last().Play();
-        } else {
-            animations[roomIndex].Play();
-        }
-        cutScenePlayed = true;
+        evil.SetActive(true);
+        m_animation.Play();
     }
 
-    public void InstantiateObstacles(int roomIndex)
+    IEnumerator InstantiateObstacles(int roomIndex)
     {
-        m_instantiateObstacles.Instantiate(roomIndex);
+        yield return StartCoroutine(m_instantiateObstacles.InstantiateObstaclesInRoom(roomIndex, cutScenePlayed));
     }
 
     public void Reset()

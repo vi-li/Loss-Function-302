@@ -5,10 +5,15 @@ using UnityEngine;
 public class Vedal : MonoBehaviour
 {
     Player player;
-    void Start()
+
+    void Awake()
     {
         player = gameObject.GetComponent<Player>();
         player.WakeUp();
+    }
+    void Start()
+    {
+
     }
 
     void Update()
