@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    
+    [SerializeField]
+    public GameObject objectToTarget;
     [SerializeField]
     private Transform target;
     [SerializeField] [Range(0.01f, 1f)]
@@ -13,6 +14,7 @@ public class CameraFollow : MonoBehaviour
 
     public bool isYLocked;
     private void LateUpdate() {
+        target = objectToTarget.transform;
         Vector3 desiredPosition = target.position + offset;
         if(isYLocked){
             desiredPosition.y = transform.position.y;

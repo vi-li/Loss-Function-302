@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     protected Tilemap collisionTilemap2;
     protected PlayerMovement controls;
     [SerializeField]
-    protected GameObject[] DoNotRunInto;
+    protected GameObject[] impermeables;
 
     [SerializeField]
     protected float smoothSpeed = 10.0f;
@@ -27,8 +27,7 @@ public class Player : MonoBehaviour
     // public float startHp;
     // public float hp;
 
-    // public float invulnerabilityCooldown;
-    // public float invulnerabilityTimer;
+    public bool isInvulnerable = false;
     //public float transformTimer;
     public float flickerDuration;
     public float flickerCount;
@@ -42,6 +41,7 @@ public class Player : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     Sprite currentSprite;
     Animator animator;
+    CameraFollow cameraFollow;
 
     protected enum Direction {
         left, right, up, down
@@ -68,9 +68,14 @@ public class Player : MonoBehaviour
         // invulnerabilityTimer = 0;
 
         moveToPosition = transform.position;
+        isInvulnerable = false;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
+
+        impermeables = GameObject.FindGameObjectsWithTag("Player");
     }
 
     public void GoToSleep()
@@ -91,6 +96,8 @@ public class Player : MonoBehaviour
         // Visually wake up
         animator.SetInteger("facingDirection", (int)Direction.down);
         animator.SetBool("isSleeping", false);
+        print("setting objectToTarget to " + gameObject.ToString());
+        cameraFollow.objectToTarget = gameObject;
     }
     
     void Update()
@@ -135,6 +142,15 @@ public class Player : MonoBehaviour
             || (collisionTilemap2.HasTile(gridPosition) && collisionTilemap2.gameObject.activeSelf))
         {
             return false;
+        }
+
+        foreach (GameObject impermeable in impermeables)
+        {
+            // If NPC (or other impermable gameobject) is in the way of the player's intended position
+            if (groundTilemap.WorldToCell(impermeable.transform.position) == gridPosition)
+            {
+                return false;
+            }
         }
 
         return true;
@@ -244,7 +260,7 @@ public class Player : MonoBehaviour
     }
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "EnemyAttack") // && invulnerabilityTimer <= 0
+        if (collision.tag == "InstantDeath" && !isInvulnerable) // && invulnerabilityTimer <= 0
         {
             // float damage = collision.gameObject.GetComponent<Bullet>().GetDamage();
             // hp -= damage;
@@ -253,6 +269,7 @@ public class Player : MonoBehaviour
             // invulnerabilityTimer = invulnerabilityCooldown;
             // StartCoroutine(DamageFlicker(invulnerabilityTimer));
             // TODO: Make them die instantly
+            print(gameObject.ToString() + " died");
         }
     }
 

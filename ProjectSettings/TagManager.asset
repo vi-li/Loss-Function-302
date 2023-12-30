@@ -49,9 +49,9 @@ TagManager:
   - name: Backgrounds
     uniqueID: 929825039
     locked: 0
-  - name: Player
-    uniqueID: 2119630847
-    locked: 0
-  - name: Obstacles
+  - name: Collisions
     uniqueID: 3580231907
+    locked: 0
+  - name: UI
+    uniqueID: 402250519
     locked: 0
