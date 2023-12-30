@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public static bool cutScenePlayed = false;
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
+    [SerializeField]
     protected List<Player> players;
     Camera mainCamera;
     CameraFollow cameraFollowScript;
@@ -31,16 +32,16 @@ public class GameController : MonoBehaviour
     void Start()
     {
         m_instantiateObstacles = GameObject.FindGameObjectsWithTag("InstantiateObstacles")[0].GetComponent<InstantiateObstacles>();
-        GameObject[] playerGameObjs = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject playerGameObj in playerGameObjs)
-        {
-            players.Add(playerGameObj.GetComponent<Player>());
-        }
+        // GameObject[] playerGameObjs = GameObject.FindGameObjectsWithTag("Player");
+        // foreach (GameObject playerGameObj in playerGameObjs)
+        // {
+        //    print(playerGameObj.ToString());
+        //     players.Add(playerGameObj.GetComponent<Player>());
+        // }
 
         mainCamera = Camera.main;
         cameraFollowScript = mainCamera.GetComponent<CameraFollow>();
 
-        print("StartingRoom");
         StartCoroutine(StartRoom(roomIndex));
     }
 
@@ -52,11 +53,9 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator StartRoom(int roomIndex)
     {
-        print("Pause play");
         PausePlay();
         PlayCutScene();
         yield return StartCoroutine(InstantiateObstacles(roomIndex));
-        print("Resume play");
         evil.SetActive(false);
         ResumePlay();
         cutScenePlayed = true;
@@ -83,7 +82,6 @@ public class GameController : MonoBehaviour
         {
             if (player == playerToWake)
             {
-                print("Player to wake: " + player.gameObject.ToString());
                 player.isBeingControlled = true;
             }
             player.isInvulnerable = false;
@@ -94,7 +92,6 @@ public class GameController : MonoBehaviour
     {
         if (cutScenePlayed)
         {
-            print("cutscene was played already");
             return;
         }
         evil.SetActive(true);

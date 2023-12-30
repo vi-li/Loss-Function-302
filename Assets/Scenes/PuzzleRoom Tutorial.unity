@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &17609693
 Transform:
   m_ObjectHideFlags: 0
@@ -287,6 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf5a5ceda7827f4ebeb34eddd45db6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilemapsToInstantiate:
+  - {fileID: 567460143}
 --- !u!1 &180122992
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +622,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomIndex: 0
+  players:
+  - {fileID: 1902635090}
+  - {fileID: 206508436}
   m_animation: {fileID: 1274831902}
   evil: {fileID: 1274831898}
 --- !u!114 &352524504
@@ -1557,7 +1562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &743505988
 Transform:
   m_ObjectHideFlags: 0
@@ -1838,7 +1843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &1038498982
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -33941,7 +33946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1340588778
 Transform:
   m_ObjectHideFlags: 0
@@ -35308,7 +35313,7 @@ Transform:
   m_GameObject: {fileID: 1610499362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.38, y: 0.5, z: -2.2145994}
+  m_LocalPosition: {x: -13.29, y: 0.8, z: -2.2145994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
