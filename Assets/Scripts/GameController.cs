@@ -11,9 +11,8 @@ public class GameController : MonoBehaviour
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
     protected List<Player> players;
-    [SerializeField]
-    protected GameObject evil;
     Camera mainCamera;
+    CameraFollow cameraFollowScript;
     [SerializeField]
     List<PlayableDirector> animations;
 
@@ -27,6 +26,7 @@ public class GameController : MonoBehaviour
             players.Add(playerGameObj.GetComponent<Player>());
         }
         mainCamera = Camera.main;
+        cameraFollowScript = mainCamera.GetComponent<CameraFollow>();
     }
 
     public void Victory() {
@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
 
     public void PausePlay()
     {
+        cameraFollowScript.enabled = false;
         foreach (Player player in players)
         {
             if (player.isBeingControlled)
@@ -57,6 +58,7 @@ public class GameController : MonoBehaviour
 
     public void ResumePlay()
     {
+        cameraFollowScript.enabled = true;
         foreach (Player player in players)
         {
             if (player == playerToWake)
