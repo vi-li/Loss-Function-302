@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     public int roomIndex = 0;
     // static variables are persisted across scene reloads
     [SerializeField]
-    public static bool cutScenePlayed = true;
+    public static bool cutScenePlayed = false;
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
     [SerializeField]
@@ -21,13 +21,16 @@ public class GameController : MonoBehaviour
     [SerializeField]
     PlayableDirector m_animation;
     [SerializeField]
+    GameObject staticCanvas;
+    [SerializeField]
     GameObject evil;
     AudioSource BGM;
+    bool isFirstFrame = true;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init()
     {
-        cutScenePlayed = true;  // try
+        cutScenePlayed = false;
     }
 
     void Start()
@@ -43,8 +46,15 @@ public class GameController : MonoBehaviour
 
         mainCamera = Camera.main;
         cameraFollowScript = mainCamera.GetComponent<CameraFollow>();
+    }
 
-        StartCoroutine(StartRoom(roomIndex));
+    void Update()
+    {
+        if (isFirstFrame)
+        {
+            StartCoroutine(StartRoom(roomIndex));
+            isFirstFrame = false;
+        }
     }
 
     public void Victory() 
@@ -55,12 +65,22 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator StartRoom(int roomIndex)
     {
+        // Prep for pause
         float originalVolume = BGM.volume;
         StartCoroutine(StartFadeMusic(BGM, 1.5f, 0f));
         PausePlay();
+
+        // Cutscene and initialize obstacles
         PlayCutScene();
         yield return StartCoroutine(InstantiateObstacles(roomIndex));
         evil.SetActive(false);
+
+        if (staticCanvas != null)
+        {
+            staticCanvas.SetActive(true);
+        }
+
+        // Prep for resume and don't play cutscene next death
         ResumePlay();
         cutScenePlayed = true;
         StartCoroutine(StartFadeMusic(BGM, 1.5f, originalVolume));
@@ -90,6 +110,7 @@ public class GameController : MonoBehaviour
                 playerToWake = player;
             }
             player.isBeingControlled = false;
+            player.isPaused = true;
             player.isInvulnerable = true;
         }
     }
@@ -104,6 +125,7 @@ public class GameController : MonoBehaviour
             {
                 player.isBeingControlled = true;
             }
+            player.isPaused = false;
             player.isInvulnerable = false;
         }
     }

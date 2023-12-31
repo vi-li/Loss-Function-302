@@ -8,12 +8,13 @@ public class Neuro : MonoBehaviour
     void Awake()
     {
         player = gameObject.GetComponent<Player>();
-        player.GoToSleep();
+        //player.GoToSleep();
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
+        player.GoToSleep();
     }
 
     // Update is called once per frame

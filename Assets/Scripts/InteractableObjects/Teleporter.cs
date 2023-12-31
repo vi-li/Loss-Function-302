@@ -8,7 +8,7 @@ public class Teleporter : MonoBehaviour
     Teleporter destination;
     [SerializeField]
     public float cooldownTimer = 0f;
-    public float cooldownDuration = 3.0f;
+    public float cooldownDuration = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class Teleporter : MonoBehaviour
         }
     }
 
-    protected void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player" && cooldownTimer <= 0 && collision.gameObject.GetComponent<Neuro>() != null) {
             destination.cooldownTimer = cooldownDuration;

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     public GameController control;
 
     public bool isBeingControlled;
+    public bool isPaused;
 
     protected SpriteRenderer spriteRenderer;
     Sprite currentSprite;
@@ -51,7 +52,6 @@ public class Player : MonoBehaviour
 
     private void Awake() {
         controls = new PlayerMovement();
-
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         cameraFollow = Camera.main.GetComponent<CameraFollow>();
@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
         //TickTimer();
         SmoothMove();
 
-        if (Input.GetButtonDown("Swap"))
+        if (Input.GetButtonDown("Swap") && !isPaused)
         {
             if (isBeingControlled)
             {

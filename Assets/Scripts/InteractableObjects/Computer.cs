@@ -18,17 +18,18 @@ public class Computer : MonoBehaviour
     protected void OnTriggerStay2D(Collider2D collision)
     {
         if (!isHacked && collision.tag == "Player" && collision.gameObject.GetComponent<Vedal>() != null && Input.GetKey("space")) {
-            Hacked();
+            StartCoroutine(Hacked());
         }
     } 
 
-    void Hacked()
+    public IEnumerator Hacked()
     {
         animator.SetBool("isHacked", true);
         isHacked = true;
         foreach (GameObject gameObj in affected)
         {
             gameObj.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

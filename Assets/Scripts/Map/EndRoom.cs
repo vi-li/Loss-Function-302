@@ -36,6 +36,7 @@ public class EndRoom : MonoBehaviour
             // Do other stuff like pause play and animation stuff
             print("Would enter next room now");
             EndRoomSequence();
+            GameController.cutScenePlayed = false;
             GetComponent<SceneFader>().FadeOutScene(sceneToLoad);
         }
     }

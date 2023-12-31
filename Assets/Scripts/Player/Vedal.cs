@@ -9,11 +9,11 @@ public class Vedal : MonoBehaviour
     void Awake()
     {
         player = gameObject.GetComponent<Player>();
-        player.WakeUp();
+        //player.WakeUp();
     }
     void Start()
     {
-
+        player.WakeUp();
     }
 
     void Update()

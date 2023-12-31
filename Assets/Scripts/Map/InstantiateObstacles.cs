@@ -8,11 +8,6 @@ public class InstantiateObstacles : MonoBehaviour
     [SerializeField]
     List<Tilemap> tilemapsToInstantiate;
 
-    void Awake()
-    {
-
-    }
-
     public IEnumerator InstantiateObstaclesInRoom(int roomToInstantiate, bool cutScenePlayed)
     {
         if (cutScenePlayed)
@@ -38,7 +33,7 @@ public class InstantiateObstacles : MonoBehaviour
                     childTransform.gameObject.SetActive(true);
                     yield return new WaitForSeconds(0.1f);
                 }
-                yield return new WaitForSeconds(2.8f);
+                yield return new WaitForSeconds(3.8f);
                 yield break;
             case 1:
                 print("Instantiating Room 1");
@@ -56,8 +51,22 @@ public class InstantiateObstacles : MonoBehaviour
                 }
                 yield return new WaitForSeconds(0.5f);
                 yield break;
-            // case 2:
-            //     // Do coroutine
+            case 2:
+                print("Instantiating Room 2");
+                yield return new WaitForSeconds(11.1f);
+                foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(2.0f);
+                foreach (Transform childTransform in tilemapsToInstantiate[1].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(0.5f);
+                yield break;
             // case 3:
             //     // Do coroutine
             // default:

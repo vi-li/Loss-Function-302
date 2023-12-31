@@ -12,6 +12,7 @@ TagManager:
   - InstantDeath
   - InstantiateObstacles
   - BGM
+  - Static Canvas
   layers:
   - Default
   - TransparentFX
