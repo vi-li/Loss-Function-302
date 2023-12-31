@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     protected float smoothSpeed = 10.0f;
-    protected Vector3 moveToPosition;
+    public Vector3 moveToPosition;
     
     protected Vector3 velocity = Vector3.zero;
     protected Direction facingDirection;

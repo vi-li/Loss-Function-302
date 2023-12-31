@@ -36,12 +36,26 @@ public class InstantiateObstacles : MonoBehaviour
                 foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
                 {
                     childTransform.gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.1f); //11.2
+                    yield return new WaitForSeconds(0.1f);
                 }
                 yield return new WaitForSeconds(2.8f);
                 yield break;
-            // case 1:
-            //     // Do coroutine
+            case 1:
+                print("Instantiating Room 1");
+                yield return new WaitForSeconds(11.1f);
+                foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(2.0f);
+                foreach (Transform childTransform in tilemapsToInstantiate[1].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(0.5f);
+                yield break;
             // case 2:
             //     // Do coroutine
             // case 3:

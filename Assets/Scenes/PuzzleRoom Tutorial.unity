@@ -34459,6 +34459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInCollider: []
+  sceneToLoad: PuzzleRoom 1
 --- !u!1 &1465746041
 GameObject:
   m_ObjectHideFlags: 0

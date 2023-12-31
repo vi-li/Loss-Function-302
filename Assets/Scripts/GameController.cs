@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     public int roomIndex = 0;
     // static variables are persisted across scene reloads
     [SerializeField]
-    public static bool cutScenePlayed = false;
+    public static bool cutScenePlayed = true;
     private Player playerToWake;
     InstantiateObstacles m_instantiateObstacles;
     [SerializeField]
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init()
     {
-        cutScenePlayed = false;   
+        cutScenePlayed = true;  // try
     }
 
     void Start()

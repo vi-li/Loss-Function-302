@@ -8,6 +8,8 @@ public class EndRoom : MonoBehaviour
     List<string> playersInCollider;
     GameController gameController;
     List<GameObject> doorToDeactivate;
+    [SerializeField]
+    string sceneToLoad;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,7 @@ public class EndRoom : MonoBehaviour
             // Do other stuff like pause play and animation stuff
             print("Would enter next room now");
             EndRoomSequence();
-            GetComponent<SceneFader>().FadeOutScene("PuzzleRoom 1");
+            GetComponent<SceneFader>().FadeOutScene(sceneToLoad);
         }
     }
 
