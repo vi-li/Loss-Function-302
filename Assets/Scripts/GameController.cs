@@ -57,12 +57,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void Victory() 
-    {
-        PausePlay();
-        PlayCutScene();
-        SceneManager.LoadScene("Victory");
-    }
     public IEnumerator StartRoom(int roomIndex)
     {
         // Prep for pause
@@ -75,6 +69,12 @@ public class GameController : MonoBehaviour
         yield return StartCoroutine(InstantiateObstacles(roomIndex));
         evil.SetActive(false);
 
+        if (roomIndex == 4)
+        {
+            Victory();
+            yield break;
+        }
+
         if (staticCanvas != null)
         {
             staticCanvas.SetActive(true);
@@ -84,6 +84,11 @@ public class GameController : MonoBehaviour
         ResumePlay();
         cutScenePlayed = true;
         StartCoroutine(StartFadeMusic(BGM, 1.5f, originalVolume));
+    }
+
+    public void Victory()
+    {
+        SceneManager.LoadScene("Postgame");
     }
 
     public static IEnumerator StartFadeMusic(AudioSource audioSource, float duration, float targetVolume)

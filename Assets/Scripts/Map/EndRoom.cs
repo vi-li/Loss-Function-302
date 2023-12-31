@@ -7,7 +7,6 @@ public class EndRoom : MonoBehaviour
     [SerializeField]
     List<string> playersInCollider;
     GameController gameController;
-    List<GameObject> doorToDeactivate;
     [SerializeField]
     string sceneToLoad;
 

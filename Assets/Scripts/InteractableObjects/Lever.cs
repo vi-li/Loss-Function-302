@@ -43,7 +43,7 @@ public class Lever : MonoBehaviour
         animator.SetBool("isActive", isActive);
         foreach (GameObject gameObj in affected)
         {
-            gameObj.SetActive(isActive);
+            gameObj.SetActive(!gameObj.activeInHierarchy);
         }
         cooldownTimer = cooldownDuration;
     }

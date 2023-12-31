@@ -27,13 +27,13 @@ public class InstantiateObstacles : MonoBehaviour
         {
             case 0:
                 print("Instantiating Tutorial Room");
-                yield return new WaitForSeconds(10.8f);
+                yield return new WaitForSeconds(12.3f);
                 foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
                 {
                     childTransform.gameObject.SetActive(true);
                     yield return new WaitForSeconds(0.1f);
                 }
-                yield return new WaitForSeconds(3.8f);
+                yield return new WaitForSeconds(1.5f);
                 yield break;
             case 1:
                 print("Instantiating Room 1");
@@ -53,23 +53,40 @@ public class InstantiateObstacles : MonoBehaviour
                 yield break;
             case 2:
                 print("Instantiating Room 2");
-                yield return new WaitForSeconds(11.1f);
+                yield return new WaitForSeconds(10.0f);
                 foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
                 {
                     childTransform.gameObject.SetActive(true);
                     yield return new WaitForSeconds(0.1f);
                 }
-                yield return new WaitForSeconds(2.0f);
+                yield return new WaitForSeconds(2.1f);
+                foreach (Transform childTransform in tilemapsToInstantiate[1].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return new WaitForSeconds(1.5f);
+                yield break;
+            case 3:
+                print("Instantiating Room 3");
+                yield return new WaitForSeconds(10.0f);
+                foreach (Transform childTransform in tilemapsToInstantiate[0].transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(2.1f);
                 foreach (Transform childTransform in tilemapsToInstantiate[1].transform)
                 {
                     childTransform.gameObject.SetActive(true);
                     yield return new WaitForSeconds(0.1f);
                 }
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1.5f);
                 yield break;
-            // case 3:
-            //     // Do coroutine
-            // default:
+            case 4:
+                print("Instantiating Victory");
+                yield return new WaitForSeconds(31f);
+                yield break;
         }
         yield break;
     }
