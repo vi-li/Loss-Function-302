@@ -2022,7 +2022,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8a88b0e9ce8db48a9c378490e31d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affected: []
+  affected:
+  - {fileID: 1809285236}
+  - {fileID: 2007019501}
+  - {fileID: 1839894101}
+  - {fileID: 1147228325}
 --- !u!1 &482556810
 GameObject:
   m_ObjectHideFlags: 0
