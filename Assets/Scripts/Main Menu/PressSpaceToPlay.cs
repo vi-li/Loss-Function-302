@@ -5,6 +5,8 @@ using UnityEngine;
 public class PressSpaceToPlay : MonoBehaviour
 {
     SceneFader sceneFader;
+    [SerializeField]
+    string sceneName;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,7 @@ public class PressSpaceToPlay : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(sceneFader.FadeAndLoadScene(SceneFader.FadeDirection.Out, "bullethellchess"));
+            StartCoroutine(sceneFader.FadeAndLoadScene(SceneFader.FadeDirection.Out, sceneName));
         }
     }
 }

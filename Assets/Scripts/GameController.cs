@@ -67,13 +67,14 @@ public class GameController : MonoBehaviour
         // Cutscene and initialize obstacles
         PlayCutScene();
         yield return StartCoroutine(InstantiateObstacles(roomIndex));
-        evil.SetActive(false);
 
         if (roomIndex == 4)
         {
             Victory();
             yield break;
         }
+
+        evil.SetActive(false);
 
         if (staticCanvas != null)
         {

@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Welcome to <GAMENAME> 1.0.0 LTS!\n              Press escape to resume"
+  m_text: "Welcome to <FILTERED> 1.0.0 LTS!\n              Press escape to resume"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b68070724c303204caf132463fad4645, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 5dabde08eeb2d244bb58e6d3920c72b6, type: 2}
